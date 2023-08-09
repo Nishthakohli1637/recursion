@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool check_palin_str(int i, string s, int n){
+    if(i>=n/2){
+        return true;
+    }
+    if(s[i]!=s[n-i-1]){
+        return false;
+    }
+    return check_palin_str(i+1, s, n);
+}
+int main(){
+    string s;
+    cin>>s;
+    int n=s.size();
+    cout<<check_palin_str(0, s, n);
+}
