@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+void Print_sum_elem(int idx, int arr[], int s, int sum, vector<int> &ds, int n){
+    if(idx==n){
+        if(s==sum){
+            for(auto it : ds){
+                cout<<it<<" ";
+            }
+            cout<<endl;
+        }
+        return;
+    }
+    ds.push_back(arr[idx]);
+    s+=arr[idx];
+    Print_sum_elem(idx+1, arr, s, sum, ds, n);
+    s-=arr[idx];
+    ds.pop_back();
+    Print_sum_elem(idx+1, arr, s, sum, ds, n);
+}
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    int sum;
+    cin>>sum;
+    vector<int> ds;
+    Print_sum_elem(0, arr, 0, sum, ds, n);
+}
