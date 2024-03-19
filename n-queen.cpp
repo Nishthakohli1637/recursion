@@ -38,3 +38,43 @@ int main(){
     n_queen(v, n, 0, "");
     return 0;
 }
+
+
+APPROACH 2
+    class Solution {
+    void solve(int col, vector<string> &board, vector<vector<string>> &ans, int n, vector<int> &left_row, vector<int> &upp_diag, vector<int> &low_diag){
+        if(col==n){
+            ans.push_back(board);
+            return;
+        }
+        for(int row=0;row<n;row++){
+            if(left_row[row]==0 && upp_diag[n-1+col-row]==0 && low_diag[row+col]==0){
+                board[row][col]='Q';
+                left_row[row]=1;
+                upp_diag[n-1+col-row]=1;
+                low_diag[row+col]=1;
+                solve(col+1, board, ans, n, left_row, upp_diag, low_diag);
+                board[row][col]='.';
+                left_row[row]=0;
+                upp_diag[n-1+col-row]=0;
+                low_diag[row+col]=0;
+
+            }
+        }
+        
+    }
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        string s(n, '.');
+        for(int i=0;i<n;i++){
+            board[i]=s;
+        }
+        vector<int> left_row(n, 0);
+        vector<int> upp_diag(2*n-1, 0);
+        vector<int> low_diag(2*n-1, 0);
+        solve(0, board, ans, n, left_row, upp_diag, low_diag);
+        return ans;
+    }
+};
