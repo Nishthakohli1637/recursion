@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+void flood_fill(vector<vector<int>> arr, int row, int col, string ans, vector<vector<bool>>visited){
+    if(row<0 || col<0 || row==arr.size() || col==arr[0].size() || arr[row][col]==0 || visited[row][col]==true){
+    return;
+    }
+    if(row==arr.size()-1 || col==arr[0].size()-1 || visited[row][col]==true){
+        cout<<ans<<endl;
+        return;
+    }
+    visited[row][col]=true;
+    flood_fill(arr, row-1, col, ans+"t", visited);
+    flood_fill(arr, row, col-1, ans+"l", visited);
+    flood_fill(arr, row+1, col, ans+"d", visited);
+    flood_fill(arr, row, col+1, ans+"r", visited);
+    visited[row][col]=false;
+}
+int main(){
+    int n;
+    cin>>n;
+    int m;
+    cin>>m;
+    vector<vector<int>> arr(n, vector<int>(m));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>arr[i][j];
+        }
+    }
+    vector<vector<bool>> visited(n, vector<bool>(m, false));
+    flood_fill(arr, 0, 0, "", visited);
+}
